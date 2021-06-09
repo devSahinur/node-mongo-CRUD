@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 client.connect(err => {
   const productCollection = client.db("organicdb").collection("products");
 
-  // MongoDB Database to api make
+  // MongoDB Database to api make send all products
 app.get("/products", (req, res) => {
     productCollection.find({})
     .toArray( (err, document) => {
@@ -31,7 +31,7 @@ app.get("/products", (req, res) => {
     })
 });
   
-// MongoDB database data update
+// MongoDB database single product update
 app.get('/product/:id', (req, res) => {
     productCollection.find({_id: ObjectId(req.params.id)})
     .toArray( (err, document) => {
@@ -39,7 +39,7 @@ app.get('/product/:id', (req, res) => {
     })
 });
 
- // MongoDB Database add data from form
+ // MongoDB Database add data from form 
 app.post("/addProduct", (req, res) => {
         const product = req.body;
         productCollection.insertOne(product)
@@ -48,7 +48,7 @@ app.post("/addProduct", (req, res) => {
             res.redirect('/')
         })
     });
-    // MongoDB Database update data
+    // MongoDB Database update single product
     app.patch('/update/:id', (req, res) => {
         productCollection.updateOne({_id: ObjectId(req.params.id)},
         {
@@ -58,7 +58,7 @@ app.post("/addProduct", (req, res) => {
             res.send(result.modifiedCount > 0)
         })
     })
- // MongoDB Database data Delete   
+ // MongoDB Database Single product Delete   
 app.delete('/delete/:id', (req, res) => {
         productCollection.deleteOne({_id: ObjectId(req.params.id)})
         .then( result => {
